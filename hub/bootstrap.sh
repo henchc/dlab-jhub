@@ -78,4 +78,4 @@ done
 # print IP
 echo ""
 echo "Your JupyterHub can be accessed at:"
-kubectl --namespace=dlabhub get svc | tail -1 | awk '{ print $3; }'
+kubectl --namespace=dlabhub get svc | tail -1 | awk '{ print $4; }'
