@@ -1,6 +1,11 @@
-# dlab-jhub
+# JupyterHub for D-Lab
 
 Current configuration and bootstrap script for UC Berkeley's D-Lab's JupyterHub for instruction.
+
+***This code synthesize the documentation from [z2h](https://zero-to-jupyterhub.readthedocs.io/en/latest/) for instructional workshops with ~30 students***
+
+---
+
 
 In Google Cloud Shell, after enabling the Compute Engine, Container Engine, and Container Registry APIs, clone in the bootstrap repo:
 
