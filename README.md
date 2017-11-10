@@ -2,7 +2,7 @@
 
 Current configuration and bootstrap script for UC Berkeley's D-Lab's JupyterHub for instruction.
 
-***This code synthesize the documentation from [z2h](https://zero-to-jupyterhub.readthedocs.io/en/latest/) for instructional workshops with ~30 students***
+***This code synthesizes the documentation from [z2h](https://zero-to-jupyterhub.readthedocs.io/en/latest/) for instructional workshops with ~30 students into a shell script***
 
 ---
 
