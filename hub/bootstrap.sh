@@ -25,11 +25,13 @@ echo "$CONFIG5" > config.yaml
 # install kubectl
 gcloud components install kubectl
 
-# create cluster
-gcloud container clusters create dlabhub \
+# create cluster with autorepair
+gcloud beta container clusters create dlabhub \
         --num-nodes=$NODES \
         --machine-type=n1-highmem-2 \
-        --zone=us-central1-b
+        --zone=us-central1-b \
+        --enable-autorepair \
+        --enable-autoupgrade
 
 # get and init helm
 curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | bash
@@ -47,8 +49,9 @@ while [ $? -ne 0 ]; do
 done
 
 # install hub
+# https://github.com/jupyterhub/helm-chart/tree/gh-pages
 helm install jupyterhub/jupyterhub \
-    --version=0.5.0-fc53f60 \
+    --version=0.5.0-b2ac9a5 \
     --name=jhub \
     --namespace=dlabhub \
     -f config.yaml
@@ -58,7 +61,7 @@ while [ $? -ne 0 ]; do
     sleep 5
     echo "Retrying..."
     helm install jupyterhub/jupyterhub \
-        --version=0.5.0-fc53f60 \
+        --version=0.5.0-b2ac9a5 \
         --name=jhub \
         --namespace=dlabhub \
         -f config.yaml
