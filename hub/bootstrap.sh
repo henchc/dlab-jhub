@@ -66,7 +66,7 @@ while [ $? -ne 0 ]; do
     sleep 5
     echo "Retrying..."
     helm install jupyterhub/jupyterhub \
-        --version=0.5.0-b2ac9a5 \
+        --version=v0.6 \
         --name=jhub \
         --namespace=dlabhub \
         -f config.yaml
