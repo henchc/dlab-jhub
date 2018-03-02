@@ -8,7 +8,7 @@ GITREPO=$2
 GITREPO=${GITREPO:=https://github.com/dlab-berkeley/python-fundamentals.git}
 
 NODES=$3
-NODES=${NODES:=3}
+NODES=${NODES:=1}
 
 # get random secret strings
 CONFIG1=$(cat config_template.yaml)
@@ -48,10 +48,15 @@ while [ $? -ne 0 ]; do
     helm repo update
 done
 
+kubectl create serviceaccount --namespace kube-system tiller
+kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'      
+helm init --service-account tiller --upgrade
+
 # install hub
 # https://github.com/jupyterhub/helm-chart/tree/gh-pages
 helm install jupyterhub/jupyterhub \
-    --version=0.5.0-b2ac9a5 \
+    --version=v0.6 \
     --name=jhub \
     --namespace=dlabhub \
     -f config.yaml
@@ -81,4 +86,4 @@ done
 # print IP
 echo ""
 echo "Your JupyterHub can be accessed at:"
-kubectl --namespace=dlabhub get svc | tail -1 | awk '{ print $3; }'
+kubectl --namespace=dlabhub get svc
